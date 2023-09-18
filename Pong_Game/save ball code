@@ -1,0 +1,33 @@
+from turtle import Turtle
+import time
+
+
+
+class Ball(Turtle):
+
+    def __init__(self):
+        super().__init__()
+        self.shape('circle')
+        self.color('white')
+        self.penup()
+        self.x_direction = 1
+        self.y_direction = 1
+        self.dist_per_frame = 10
+
+    def move(self):
+        new_x = self.xcor() + (self.dist_per_frame * self.x_direction)
+        new_y = self.ycor() + (self.dist_per_frame * self.y_direction)
+        self.goto(new_x, new_y)
+
+    def bounce(self, side):
+        if side == 'vertical':
+            self.y_direction *= -1
+        elif side == 'horizontal':
+            self.x_direction *= -1
+            self.dist_per_frame += 1
+
+    def reset(self):
+        self.home()
+        self.dist_per_frame = 10
+        time.sleep(.25)
+        self.bounce('horizontal')
